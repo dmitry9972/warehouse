@@ -34,7 +34,7 @@ class Order(models.Model):
         (DELIVERED, ('Delivered')),
     )
 
-    order_info =  models.CharField(max_length=1000, db_index=True,
+    order_info =  models.CharField(max_length=10000, db_index=True,
                             verbose_name='Инфа о заказе')
 
     order_number = models.IntegerField(default=0, unique=True, verbose_name='Номер заказа')

@@ -2,7 +2,7 @@ from rest_framework import status
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-# from main.models import Product, Brand, \
+from main.models import  Order
 #     Country, Photo, Category, \
 #     Order, Productset, Discount, Discount_pediod, Discount_brand
 from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView
@@ -45,6 +45,12 @@ class registration_view(APIView):
 class OrderCreateView(CreateAPIView):
 
     def post(self, request):
+        print('000000000000/////////////////////')
+        print(request.data)
+        print('***********')
+        print(request.data['order_info'])
+        print('***********')
+
         serializer = OrderSerializer(data=request.data)
         data={}
         if serializer.is_valid():
@@ -53,3 +59,7 @@ class OrderCreateView(CreateAPIView):
         else:
             data = serializer.errors
         return Response(data)
+
+class order(ListAPIView):
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all().order_by('-order_number')
