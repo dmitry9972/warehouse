@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from datetime import datetime
+from tasks import send_order_to_cdec
 # Create your models here.
 
 
@@ -56,3 +57,17 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
+
+@receiver(post_save, sender = Order)
+def push_order_to_celery(sender, instance=None, created=True, **kwargs):
+    if created:
+        print('hohohoho!!!')
+        order = instance
+
+        transfer_data = {}
+        transfer_data['order_client'] = order.order_client
+        transfer_data['order_pk'] = order.pk
+        transfer_data['order_date'] = order.order_date
+        transfer_data['order_info'] = order.order_info
+
+        send_order_to_cdec.delay(transfer_data)
