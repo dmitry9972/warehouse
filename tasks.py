@@ -33,10 +33,46 @@ def send_order_to_cdec(data_to_transfer):
         url = 'https://api.edu.cdek.ru/v2/orders'
         headers = {'Authorization': 'Bearer {}'.format(token)}
 
-        context = {'user': 'Вася Пупкин'}
+        # "comment": {{comment}}, - insert
+        # order
+        # number
+        # here
+        # "name": "{{ products }}", - inserd
+        # products
+        # here
+        # "name": "{{ sender_name }}" - inser
+        # user
+        # name
+        # here
+
+        # transfer_data['order_client'] = order.order_client
+        # transfer_data['order_pk'] = order.pk
+        # transfer_data['order_date'] = order.order_date
+        # transfer_data['order_info'] = order.order_info
+
+        order_comment ="Order N{order_num} at {order_date}".format(
+            order_num = data_to_transfer['order_pk'],
+            order_date= data_to_transfer['order_date']
+        )
+
+        print(data_to_transfer['order_info'])
+        json_data_to_transfer = json.loads(data_to_transfer['order_info'])
+        products = ''
+        products += 'From ' + json_data_to_transfer['1']['username'] + ':'
+        for m in json_data_to_transfer:
+            products += json_data_to_transfer[m]['product_name'] + ':'
+            products += str(json_data_to_transfer[m]['product_count']) + '; '
+
+        print(products)
+
+        context = {'comment': order_comment,
+                   'products': products,
+                   'sender_name': json_data_to_transfer['1']['username']}
+
+
         data_send = render_to_string('json_templates/cdek_create_order.txt', context)
         encoded_data = data_send.encode('utf-8')
-        print(encoded_data)
+        # print(encoded_data)
 
         cdek_json = json.loads(encoded_data)
         print(cdek_json)

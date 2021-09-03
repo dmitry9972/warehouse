@@ -1,6 +1,6 @@
 {
     "number" : "ddOererre7450813980068",
-    "comment" : "Новый заказ",
+    "comment" : "{{ comment }}",
     "delivery_recipient_cost" : {
         "value" : 50
     },
@@ -43,7 +43,7 @@
             "payment" : {
                 "value" : 3000
             },
-            "name" : "Товар",
+            "name" : "{{ products }}",
             "cost" : 300,
             "amount" : 2,
             "weight" : 700,
@@ -60,7 +60,7 @@
     } ]
     },
     "sender" : {
-        "name" : "Петров Петр"
+        "name" : "{{ sender_name }}"
     },
     "services" : [ {
         "code" : "SECURE_PACKAGE_A2"
