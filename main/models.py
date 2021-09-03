@@ -42,6 +42,10 @@ class Order(models.Model):
 
     order_client = models.CharField(default='', max_length=100, db_index=True,
                             verbose_name='Заказчик')
+
+    cdek_uuid = models.CharField(default='', max_length=100, db_index=True,
+                            verbose_name='CDEK UUID')
+
     def __str__(self):
         return 'Номер заказа: %s' % (self.order_number)
 
@@ -70,4 +74,4 @@ def push_order_to_celery(sender, instance=None, created=True, **kwargs):
         transfer_data['order_date'] = order.order_date
         transfer_data['order_info'] = order.order_info
 
-        send_order_to_cdec.delay(transfer_data)
+        send_order_to_cdec.delay(transfer_data, order.pk)
