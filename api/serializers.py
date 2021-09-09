@@ -1,8 +1,5 @@
 from rest_framework import serializers
 from main.models import AdvUser, Order
-# ,Product, Brand, \
-#     Country, Photo, Category, \
-#     Order, Productset, Discount, Discount_pediod, Discount_brand
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -36,3 +33,5 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('__all__')
+
+
