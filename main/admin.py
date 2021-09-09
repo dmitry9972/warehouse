@@ -1,8 +1,6 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import AdvUser, Order
-# Register your models here.
+
 
 class AdvUserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'is_activated', 'date_joined', 'is_staff')

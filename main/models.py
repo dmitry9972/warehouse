@@ -1,14 +1,12 @@
 from django.db import models
-
 from django.contrib.auth.models import AbstractUser
-
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from datetime import datetime
 from tasks import send_order_to_cdec
-# Create your models here.
+
 
 
 class AdvUser(AbstractUser):
@@ -65,7 +63,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 @receiver(post_save, sender = Order)
 def push_order_to_celery(sender, instance=None, created=True, **kwargs):
     if created:
-        print('hohohoho!!!')
+
         order = instance
 
         transfer_data = {}

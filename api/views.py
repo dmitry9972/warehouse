@@ -3,19 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from main.models import  Order
-#     Country, Photo, Category, \
-#     Order, Productset, Discount, Discount_pediod, Discount_brand
 from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView
-# from .serializers import ProductSerializer, ProductDetailSerializer
-# from .serializers import BrandSerializer, BrandDetailSerializer, \
-#     CountrySerializer, CountryDetailSerializer, \
-#     PhotoSerializer, PhotoDetailSerializer, \
-#     CategorySerializer, CategoryDetailSerializer, \
-#     OrderSerializer, OrderDetailSerializer, \
-#     ProductsetSerializer, ProductsetDetailSerializer, \
-#     DiscountSerializer, DiscountDetailSerializer, \
-#     Discount_pediodSerializer, Discount_pediodDetailSerializer, \
-#     Discount_brandSerializer, Discount_brandDetailSerializer
 from .serializers import RegistrationSerializer, OrderSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -45,11 +33,7 @@ class registration_view(APIView):
 class OrderCreateView(CreateAPIView):
 
     def post(self, request):
-        print('000000000000/////////////////////')
-        print(request.data)
-        print('***********')
-        print(request.data['order_info'])
-        print('***********')
+
 
         serializer = OrderSerializer(data=request.data)
         data={}

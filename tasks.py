@@ -3,6 +3,7 @@ import requests
 import json
 from django.template.loader import render_to_string
 from django.conf import settings
+import logging
 
 import os
 
@@ -27,7 +28,10 @@ def send_order_to_cdec(data_to_transfer, order_pk):
 
         cdec_response = json.loads(r.text)
 
-        print(cdec_response['access_token'])
+        if settings.DEBUG == True:
+            logger = logging.getLogger(__name__)
+            logger.warning('access_token:')
+            logger.warning(cdec_response['access_token'])
 
         token = cdec_response['access_token']
         return token
@@ -41,7 +45,13 @@ def send_order_to_cdec(data_to_transfer, order_pk):
             order_date=data_to_transfer['order_date']
         )
 
-        print(data_to_transfer['order_info'])
+
+        if settings.DEBUG == True:
+            logger = logging.getLogger(__name__)
+            logger.warning('order_info:')
+            logger.warning(data_to_transfer['order_info'])
+
+
         json_data_to_transfer = json.loads(data_to_transfer['order_info'])
         products = ''
         products += 'From ' + json_data_to_transfer['1']['username'] + ':'
@@ -55,24 +65,36 @@ def send_order_to_cdec(data_to_transfer, order_pk):
 
         data_send = render_to_string('json_templates/cdek_create_order.txt', context)
         encoded_data = data_send.encode('utf-8')
-        # print(encoded_data)
+
 
         cdek_json = json.loads(encoded_data)
-        # print(cdek_json)
+
         r = requests.post(url, json=cdek_json, headers=headers)
 
-        print(r.text)
+
+        if settings.DEBUG == True:
+            logger = logging.getLogger(__name__)
+            logger.warning('r.text:')
+            logger.warning(r.text)
+
 
         entity_uuid = json.loads(r.text)['entity']['uuid']
 
-        # print (entity_uuid)
+
         return entity_uuid
 
     def save_uuid_to_model(order_uuid):
         m = Order.objects.get(pk=order_pk)
         m.cdek_uuid = order_uuid
         m.save()
-        print('UUID SAVED: ', order_uuid)
+
+        if settings.DEBUG == True:
+            logger = logging.getLogger(__name__)
+            logger.warning('UUID SAVED: ')
+            logger.warning(order_uuid)
+
+
+
 
     def send_uuid_to_shop(order_uuid):
 
@@ -82,15 +104,28 @@ def send_order_to_cdec(data_to_transfer, order_pk):
         m = Order.objects.get(pk=order_pk)
         send_order_number = m.order_number
         url = 'http://127.0.0.1:8000/api/order/update/{}/'.format(send_order_number)
-        print(url)
+
+
         data_send = {'cdek_uuid': order_uuid  ,
                      'status': 2}
         r = requests.patch(url, data=data_send, headers=headers)
-        print(r.text)
-        print('UUID SENT TO SHOP - warehouse pk: ', order_pk)
-        print('UUID SENT TO SHOP - shop pk: ', send_order_number)
 
-    print('WAREHOUSE HOHOHO')
+
+        if settings.DEBUG == True:
+            logger = logging.getLogger(__name__)
+            logger.warning('r.text: ')
+            logger.warning(r.text)
+            logger.warning('UUID SENT TO SHOP - warehouse pk: ')
+            logger.warning(order_pk)
+            logger.warning('UUID SENT TO SHOP - shop pk: ')
+            logger.warning(send_order_number)
+
+
+
+
+    if settings.DEBUG == True:
+        logger = logging.getLogger(__name__)
+        logger.warning('WAREHOUSE ENTER')
 
     token = register_to_cdec()
     order_uuid = transfer_to_cdec(token=token, data_to_transfer=data_to_transfer);
@@ -98,5 +133,5 @@ def send_order_to_cdec(data_to_transfer, order_pk):
     send_uuid_to_shop(order_uuid)
 
 
-    #  HERE WE MUST SEND ORDER_UUID TO SHOP ORM
+
     return
