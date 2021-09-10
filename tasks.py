@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import logging
 
+
 import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "warehouse.settings")
@@ -103,7 +104,7 @@ def send_order_to_cdec(data_to_transfer, order_pk):
 
         m = Order.objects.get(pk=order_pk)
         send_order_number = m.order_number
-        url = 'http://127.0.0.1:8000/api/order/update/{}/'.format(send_order_number)
+        url = 'http://127.0.0.1:8000/api/order/{}/'.format(send_order_number)
 
 
         data_send = {'cdek_uuid': order_uuid  ,
