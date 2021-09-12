@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from datetime import datetime
-from tasks import send_order_to_cdec
+from tasks import CDEK_task
 
 
 
@@ -71,5 +71,7 @@ def push_order_to_celery(sender, instance=None, created=True, **kwargs):
         transfer_data['order_pk'] = order.pk
         transfer_data['order_date'] = order.order_date
         transfer_data['order_info'] = order.order_info
+        # instanceCDEK = CDEK( 'EMscd6r9JnFiQ3bLoyjJY6eM78JrJceI',
+        #                              'PjLZkKBHEiLK3YsjtNrt3TGNG0ahs3kG' )
 
-        send_order_to_cdec.delay(transfer_data, order.pk)
+        CDEK_task.send_order_to_cdec(transfer_data, order.pk)
