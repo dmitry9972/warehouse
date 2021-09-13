@@ -45,7 +45,8 @@ class CDEK(Task):
 
             if settings.DEBUG == True:
                 logger = logging.getLogger(__name__)
-                logger.warning('order_info:')
+                logger.warning(data_to_transfer)
+
                 logger.warning(data_to_transfer['order_info'])
 
             json_data_to_transfer = json.loads(data_to_transfer['order_info'])
@@ -94,7 +95,7 @@ class CDEK(Task):
             url = settings.SHOP_API_URL.format(send_order_number)
 
             data_send = {'cdek_uuid': order_uuid,
-                         'status': 2}
+                         'status': 3}
             r = requests.patch(url, data=data_send, headers=headers)
 
             if settings.DEBUG == True:
@@ -111,7 +112,7 @@ class CDEK(Task):
             logger.warning('WAREHOUSE ENTER')
 
         token = register_to_cdec()
-        order_uuid = transfer_to_cdec(token=token, data_to_transfer=data_to_transfer);
+        order_uuid = transfer_to_cdec(token=token, data_to_transfer=data_to_transfer)
         save_uuid_to_model(order_uuid)
         send_uuid_to_shop(order_uuid)
 
