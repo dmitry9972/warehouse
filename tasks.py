@@ -1,6 +1,6 @@
 from celery import Celery
 from celery.schedules import crontab
-import requests
+# import requests
 import json
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -54,6 +54,8 @@ def push_order_to_carrier(transfer_data, order_pk, carrier_name='CDEK'):
 
     CDEK_instance = CDEK(settings.CDEK_LOGIN,
                          settings.CDEK_PASSWORD)
+    print(transfer_data)
+    print(order_pk)
     CDEK_instance.send_order_to_cdec(transfer_data, order_pk)
 
     order = Order.objects.get(pk=order_pk)

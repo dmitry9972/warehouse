@@ -27,6 +27,6 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('register/', registration_view.as_view(), name='register'),
     path('login/', obtain_auth_token, name='login'),
-    path('order/create/', OrderCreateView.as_view()),
-    path('order/', order.as_view()),
+    path('order/create/', OrderCreateView.as_view(), name='order-create'),
+    path('order/', order.as_view(), name='order'),
 ]
