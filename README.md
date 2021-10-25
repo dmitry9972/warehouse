@@ -14,13 +14,16 @@ After that celery-task sends it back to shop via rest. And tracknumber being sav
 order: client -> shop -> warehouse -> CDEK -> warehouse -> shop
 
 
-CURL EXAMPLE REQUEST: curl -X POST -H "Authorization: Token 8e58ec44038ab7947bfb07e55f2c6fd2ded2a311" -d "advuser=4&productset=1&productset=1" 'http://localhost:8000/api/order/'
+## CURL EXAMPLE REQUEST:   
+curl -X POST -H "Authorization: Token 8e58ec44038ab7947bfb07e55f2c6fd2ded2a311" -d "advuser=4&productset=1&productset=1" 'http://localhost:8000/api/order/'
 
-DOCUMENTATION:  
+
+## DOCUMENTATION:  
 http://127.0.0.1:8000/api/swagger/  
 http://127.0.0.1:8000/api/swagger/  
   
-HOW TO INSTALL:   
+
+## HOW TO INSTALL:   
   
 sudo apt install redis-server  
 mkdir shop_warehouse    
@@ -79,7 +82,7 @@ source go.sh
   
  
     
-Features:  
+## Features:  
 
 1)Token-authentication    
 2)Swagger  
