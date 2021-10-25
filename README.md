@@ -18,10 +18,10 @@ CURL EXAMPLE REQUEST: curl -X POST -H "Authorization: Token 8e58ec44038ab7947bfb
 
 
 
-HOW TO INSTALL: 
-
+HOW TO INSTALL:   
+  
 sudo apt install redis-server  
-mkdir shop_warehouse  
+mkdir shop_warehouse    
 cd shop_warehouse  
 pip install virtualenv  
 virtualenv newenv  
@@ -30,15 +30,15 @@ pip install celery==5.1.2
 pip install django_phonenumber_field==5.2.0  
 pip install Django==3.2.6  
 pip install coloredlogs==15.0.1  
-pip install colorlog==6.5.0  
+pip install colorlog==6.5.0   
 pip install requests==2.26.0  
 pip install drf_yasg==1.20.0  
 pip install psycopg2_binary==2.9.1  
 pip install djangorestframework==3.12.4  
-pip install psycopg2==2.9.1  
-pip install django-cors-headers  
+pip install psycopg2==2.9.1   
+pip install django-cors-headers   
 pip install django-celery-beat==2.2.1  
-pip install django-extensions  
+pip install django-extensions   
 pip install phonenumbers=8.12.35  
 pip install Pillow==8.4.0  
 pip install redis==3.5.3  
@@ -53,16 +53,30 @@ mkdir warehouse
 cd warehouse  
 git clone http://github.com/dmitry9972/warehouse.git  
   
-cd ..   
+cd ..  
   
 cd shop  
 cd shop  
+  
+sudo apt install postgresql postgresql-contrib  
+sudo -i -u postgres  
+psql  
+CREATE USER user_name WITH SUPERUSER PASSWORD 'password';  
+CREATE DATABASE django_db WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';  
+\q  
+#######!!!!!!!!!!!  
+####### paste in pgrestore BASE path to BACK_666 (directory where you are running this commands)  
+########!!!!!!!!!!!!  
+pg_restore -U postgres -d django_db -v "/home/dmit/shop_warehouse/shop/shop/BACK_666"  
+exit  
+  
 cd epicRUN  
+  
 source go.sh  
-
   
-
   
+ 
+    
 Features:  
 
 1)Token-authentication    
