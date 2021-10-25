@@ -15,26 +15,26 @@ order: client -> shop -> warehouse -> CDEK -> warehouse -> shop
 
 
 
-Features:
+Features:  
+  
+1)Token-authentication  
+2)Swagger  
+3)Celery-redis periodic tasks  
+4)environment project settings
+5)Custom permision classes (/api/permissions.py)   
+6)Router urls.  
+7)Tests (api/tests.py)  
 
-1)Token-authentication
-2)Swagger
-3)Celery-redis periodic tasks
-4)Separate project-settings (git-ignored) + settings.example
-5)Custom permision classes (/api/permissions.py)
-6)Router urls.
-7)Tests (api/tests.py)
 
 
-
-Requarements:
-
-celery==5.1.2
-django_phonenumber_field==5.2.0
-Django==3.2.6
-coloredlogs==15.0.1
-requests==2.26.0
-drf_yasg==1.20.0
-psycopg2_binary==2.9.1
-djangorestframework==3.12.4
-psycopg2==2.9.1
+Requarements:  
+  
+celery==5.1.2  
+django_phonenumber_field==5.2.0  
+Django==3.2.6  
+coloredlogs==15.0.1  
+requests==2.26.0  
+drf_yasg==1.20.0  
+psycopg2_binary==2.9.1  
+djangorestframework==3.12.4  
+psycopg2==2.9.1  
