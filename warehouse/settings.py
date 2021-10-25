@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -174,4 +175,28 @@ LOGGING = {
 
 CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'
 
-from .settings_local import *
+from pathlib import Path
+
+SECRET_KEY = os.environ['SECRET_KEY']
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+WAREHOUSE_REDIS_BROKER = os.environ['WAREHOUSE_REDIS_BROKER']
+
+CDEK_REGISTER_URL =  os.environ['CDEK_REGISTER_URL']
+
+CDEK_ORDERS_URL =  os.environ['CDEK_ORDERS_URL']
+
+SHOP_API_TOKEN =  os.environ['SHOP_API_TOKEN']
+
+SHOP_API_URL =  os.environ['SHOP_API_URL']
+
+CDEK_LOGIN =  os.environ['CDEK_LOGIN']
+CDEK_PASSWORD =  os.environ['CDEK_PASSWORD']

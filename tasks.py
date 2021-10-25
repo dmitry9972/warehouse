@@ -51,12 +51,12 @@ def push_order_to_carrier(transfer_data, order_pk, carrier_name='CDEK'):
 
     from main.models import Order
     import main.const
-
-    CDEK_instance = CDEK(settings.CDEK_LOGIN,
-                         settings.CDEK_PASSWORD)
-    print(transfer_data)
-    print(order_pk)
-    CDEK_instance.send_order_to_cdec(transfer_data, order_pk)
+    if carrier_name=='CDEK':
+        CDEK_instance = CDEK(settings.CDEK_LOGIN,
+                             settings.CDEK_PASSWORD)
+        CDEK_instance.send_order_to_cdec(transfer_data, order_pk)
+    else:
+        pass
 
     order = Order.objects.get(pk=order_pk)
     order.status = main.const.ORDER_SENT_TO_CARRIER
