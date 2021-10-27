@@ -18,9 +18,16 @@ order: client -> shop -> warehouse -> CDEK -> warehouse -> shop
 curl -X POST -H "Authorization: Token 8e58ec44038ab7947bfb07e55f2c6fd2ded2a311" -d "advuser=4&productset=1&productset=1" 'http://localhost:8000/api/order/'
 
 
+## DATABASE SCHEME:
+
+![This is an image](https://github.com/dmitry9972/shop/blob/main/SHOP_WAREHOUSE_SCHEME.png)
+
 ## DOCUMENTATION:  
 http://127.0.0.1:8000/api/swagger/  
 http://127.0.0.1:8000/api/swagger/  
+
+
+
   
 
 ## HOW TO INSTALL:   
@@ -93,4 +100,5 @@ source go.sh
 7)Tests (api/tests.py)    
 
     
+
 
